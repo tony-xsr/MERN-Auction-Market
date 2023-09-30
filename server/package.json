@@ -30,7 +30,8 @@
     "express": "^4.18.2",
     "helmet": "^7.0.0",
     "mongoose": "^6.3.0",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
