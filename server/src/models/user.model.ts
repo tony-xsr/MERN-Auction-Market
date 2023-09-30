@@ -4,7 +4,7 @@ import { AuctionModel } from './auction.model';
 import { RefundTransactionModel } from './refund.model';
 
 
-class User {
+export class User {
   @prop({ required: true, trim: true })
   public name!: string;
 
@@ -68,7 +68,6 @@ class User {
   
   @prop({ default: null, ref: AuctionModel }) // Reference to the AuctionModel for the current bid
   public currentBid?: Ref<typeof AuctionModel>;
-  
   // @prop({ ref: () => BidModel }) // Reference to the Bid model
   // public bids?: Ref<typeof BidModel>[];
 
