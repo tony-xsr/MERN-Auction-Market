@@ -22,18 +22,21 @@ services:
       - app-network
   mongo:
     image: mongo:latest
-    env_file: ./server/.env
     container_name: mongo
     environment: 
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE_NAME}
+      MONGO_INITDB_ROOT_USERNAME: "${MONGODB_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_PASSWORD}"
+      MONGO_INITDB_DATABASE: "${MONGODB_DATABASE_NAME}"
+    env_file:
+      - ./server/.env
+      #- ./.env
     volumes:
-      - data-volume:/data/db # Mount the data-volume volume to /data/db in the container
+      - mongo-data:/data/db # Mount the mongo-data volume to /data/db in the container
     ports:
       - "27017:27017"
     networks:
       - app-network
+    command: mongod --bind_ip 0.0.0.0  
   client:
     build:
       context: ./client
@@ -50,13 +53,19 @@ services:
       - "3000:3000"
     networks:
       - app-network
-
+  # debug:
+  #   image: alpine
+  #   command: sh -c 'env'
+  #   depends_on:
+  #     - mongo
+  #   env_file:
+  #     - ./server/.env
 networks:
     app-network:
         driver: bridge
 
 volumes:
-    data-volume:
+    mongo-data:
     node_modules:
     web-root:
       driver: local
