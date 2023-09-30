@@ -28,7 +28,7 @@ app.use(compression({ filter: compressFilter }));
 app.use(express.static('public'))
 
 app.get('/', (_req: Request, res: Response) => {
-  res.send('Hello World!');
+  res.send('Hello From Server!');
 });
 
 

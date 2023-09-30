@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'; 
-import logger from 'src/middleware/logger';
-const dbUrl = `mongodb://${process.env['MONGODB_USERNAME']}:${ process.env['MONGODB_PASSWORD']}@${process.env['MONGODB_IP_ADDRESS']}:${process.env['MONGODB_DATABASE_PORT']}/${process.env['MONGODB_DATABASE_NAME']}?authSource=admin`;
+import logger from '../middleware/logger';
+const dbUrl = `mongodb://${process.env['MONGODB_USERNAME']}:${ process.env['MONGODB_PASSWORD']}@${process.env['MONGODB_IP_ADDRESS']}:${process.env['MONGO_PORT']}/${process.env['MONGODB_DATABASE_NAME']}?authSource=admin`;
 
 let urlConnect = process.env['MONGODB_URI']? process.env['MONGODB_URI'] : dbUrl;
 const connectDB = async () => {
