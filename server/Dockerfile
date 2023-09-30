@@ -7,7 +7,7 @@ WORKDIR /usr/src/server
 
 RUN yarn install
 
-EXPOSE 4040
+EXPOSE 8080
 
 ENV NODE_ENV production
 
