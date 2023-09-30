@@ -1,9 +1,13 @@
 import app from './app';
 import config from './config/config';
 import logger from './middleware/logger';
+import connectDB from './utils/connectDB';
 
-const server = app.listen(parseInt(config.port), () => {
+const server = app.listen(config.port, () => {
   logger.log('info', `Server is running on Port: ${config.port}`);
+
+  //Call the connectDB
+  connectDB();
 });
 
 process.on('SIGTERM', () => {
