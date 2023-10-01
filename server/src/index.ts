@@ -5,7 +5,6 @@ import connectDB from './utils/connectDB';
 
 const server = app.listen(config.port, () => {
   logger.log('info', `Server is running on Port: ${config.port}`);
-
   //Call the connectDB
   connectDB();
 });

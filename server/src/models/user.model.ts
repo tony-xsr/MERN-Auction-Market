@@ -1,9 +1,19 @@
-import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
-import bcrypt from 'bcrypt';
-import { AuctionModel } from './auction.model';
-import { RefundTransactionModel } from './refund.model';
+import { prop, getModelForClass, Ref, pre, modelOptions } from '@typegoose/typegoose';
+import bcrypt from 'bcryptjs';
+// import { Auction } from './auction.model';
+// import { RefundTransaction } from './refund.model';
 
+const saltRounds = 12; 
 
+@pre<User>('save', async function () {
+  // Hash password if the password is new or was updated
+  if (!this.isModified('password')) return;
+
+  // Hash password with costFactor of 12
+  this.password = await bcrypt.hash(this.password, saltRounds);
+})
+
+@modelOptions({ schemaOptions: { collection: 'users' } })
 export class User {
   @prop({ required: true, trim: true })
   public name!: string;
@@ -12,7 +22,7 @@ export class User {
   public email!: string;
 
   @prop({ required: true })
-  public hashed_password!: string;
+  public password!: string;
 
   @prop()
   public salt!: string;
@@ -29,11 +39,20 @@ export class User {
   @prop()
   public stripe_customer?: object;
 
-  // @prop({ default: 0 })
-  // public walletBalance!: number;
+  @prop()
+  public refreshToken?: string | null; 
 
-  @prop({ ref: () => AuctionModel }) 
-  public createdAuctions?: Ref<typeof AuctionModel>[];
+  // @prop({ ref: () => Auction, default: [] }) 
+  // public createdAuctions?: Ref<Auction>[];
+  @prop()
+  public createdAuctions?: string[]; // Array of auction IDs
+  
+  @prop()
+  public currentBid?: string[]; // Array of auction IDs
+
+  // @prop({ ref: Auction, default: null }) // Reference to the AuctionModel for the current bid
+  // public currentBid?: Ref<Auction>;
+
 
   @prop({ default: 0 })
   public availableBalance!: number; // This field stores the balance available for bidding
@@ -60,20 +79,14 @@ export class User {
       throw new Error('Invalid attempt to unlock balance');
     }
   }
-
-
-  @prop({ ref: RefundTransactionModel }) // Reference to the RefundTransaction model
-  public refundTransactions?: Ref<typeof RefundTransactionModel>[];
-
-  
-  @prop({ default: null, ref: AuctionModel }) // Reference to the AuctionModel for the current bid
-  public currentBid?: Ref<typeof AuctionModel>;
-  // @prop({ ref: () => BidModel }) // Reference to the Bid model
-  // public bids?: Ref<typeof BidModel>[];
-
-  public authenticate(plainText: string): boolean {
-    return bcrypt.compareSync(plainText, this.hashed_password);
+  public async authenticate(plainText: string) {
+    return await bcrypt.compare(plainText, this.password);
   }
+  // @prop({ ref: RefundTransaction, default: [] }) // Reference to the RefundTransaction model
+  // public refundTransactions?: Ref<RefundTransaction>[];
+
+ 
 }
 
-export const UserModel = getModelForClass(User);
+const UserModel = getModelForClass(User);
+export default UserModel;
