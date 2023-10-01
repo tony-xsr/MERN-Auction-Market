@@ -1,5 +1,5 @@
 import compression from 'compression';
-import type { Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 /**
  * Filter Function for the compression middleware
