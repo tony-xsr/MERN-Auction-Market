@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "commonjs",
+  "license":"MIT",
   "scripts": {
     "dev": "tsc --project './tsconfig.json' --watch &NODE_ENV=development nodemon ./dist/index.js",
     "build": "tsc --project './tsconfig.json'",

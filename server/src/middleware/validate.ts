@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { AnyZodObject, ZodError } from 'zod'; 
+import { AnyZodObject, ZodError } from 'zod';
 
 export const validate =
   (schema: AnyZodObject) =>
@@ -9,7 +9,8 @@ export const validate =
         params: req.params,
         query: req.query,
         body: req.body,
-      }); 
+      });
+      // No validation errors, so continue processing the request
       next();
     } catch (err: any) {
       if (err instanceof ZodError) {
@@ -18,6 +19,7 @@ export const validate =
           error: err.errors,
         });
       }
-      next(err);
+      // Handle other errors by passing them to the next middleware/handler
+      return next(err);
     }
   };

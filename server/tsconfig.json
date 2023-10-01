@@ -11,12 +11,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "outDir": "./dist"
-  },
-  "extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
-  "exclude": ["node_modules"],
-  "include": [
-    "./src/**/*.tsx",
-    "./src/**/*.ts",
-    "./src/**/*.d.ts"
-  ]
+  }
+ 
 }

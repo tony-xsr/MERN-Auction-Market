@@ -20,10 +20,7 @@ class Auction {
   public description?: string;
 
   @prop()
-  public image?: {
-    data: Buffer;
-    contentType: string;
-  };
+  public image?: string;
 
   @prop({ default: Date.now })
   public created?: Date;
