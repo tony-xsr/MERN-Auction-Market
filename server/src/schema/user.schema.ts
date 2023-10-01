@@ -5,11 +5,12 @@ export const UserToken = object({
       accessToken:  string({ required_error: 'Access Token is required' }).min(
         24,
         'AccessToken to short'
-      ),
-      refreshToken: string({ required_error: 'Refresh Token is required' }).min(
-        24,
-        'Refresh Token to short'
       )
+      // ,
+      // refreshToken: string({ required_error: 'Refresh Token is required' }).min(
+      //   24,
+      //   'Refresh Token to short'
+      // )
     }),
   });
 

@@ -1,4 +1,4 @@
-import { prop, getModelForClass, Ref, pre, modelOptions } from '@typegoose/typegoose';
+import { prop, getModelForClass, pre, modelOptions } from '@typegoose/typegoose';
 import bcrypt from 'bcryptjs';
 // import { Auction } from './auction.model';
 // import { RefundTransaction } from './refund.model';
@@ -46,7 +46,7 @@ export class User {
   // public createdAuctions?: Ref<Auction>[];
   @prop()
   public createdAuctions?: string[]; // Array of auction IDs
-  
+
   @prop()
   public currentBid?: string[]; // Array of auction IDs
 
