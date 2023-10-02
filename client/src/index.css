@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* App.css */
+.home {
+
+  width: 100%;
+}
+.home .container {
+  display: flex;
+  width: 100%;
+  min-height: 200px;
+}
+
+.home .left-column {
+  flex: 3;
+  background-color: #f0f0f0; /* Add your background color */
+  padding: 20px;
+}
+
+.home .right-column {
+  flex: 1;
+  background-color: #e0e0e0; /* Add your background color */
+  padding: 20px;
+}
