@@ -6,6 +6,7 @@ import compressFilter from './utils/compressFilter.util';
 import config from './config/config';
 import logger from './middleware/logger';
 import authRouter from './routers/auth.route';
+import auctionRouter from './routers/auction.route';
 
 const app: Express = express();
 
@@ -29,6 +30,7 @@ app.use(compression({ filter: compressFilter }));
 app.use(express.static('public'))
 
 app.use('/api/auth', authRouter);
+app.use('/api/auction', auctionRouter);
 
 app.get('/', (_req: Request, res: Response) => {
   res.send('Hello From Server!');

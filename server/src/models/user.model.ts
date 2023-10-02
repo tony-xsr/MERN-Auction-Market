@@ -1,8 +1,5 @@
 import { prop, getModelForClass, pre, modelOptions } from '@typegoose/typegoose';
 import bcrypt from 'bcryptjs';
-// import { Auction } from './auction.model';
-// import { RefundTransaction } from './refund.model';
-
 const saltRounds = 12; 
 
 @pre<User>('save', async function () {
@@ -44,6 +41,16 @@ export class User {
 
   // @prop({ ref: () => Auction, default: [] }) 
   // public createdAuctions?: Ref<Auction>[];
+
+  //Should define User Model by this ways
+  //Currently i got problem with compile TypeScript
+  //And Mongoose 
+  // @prop({ ref: () => AuctionModel, foreignField: 'seller' }) 
+  // public createdAuctions?: Ref<typeof AuctionModel>[];
+
+  // @prop({ ref: () => AuctionModel, foreignField: 'currentBid' })
+  // public currentBid?: Ref<typeof AuctionModel>[];
+
   @prop()
   public createdAuctions?: string[]; // Array of auction IDs
 

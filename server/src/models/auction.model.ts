@@ -18,6 +18,12 @@ export class Auction {
   @prop({ default: Date.now })
   public bidStart?: Date;
 
+  @prop({
+    default: new Date(Date.now() + 24 * 60 * 60 * 1000), // Default to 24 hours from now
+  })
+  bidEnd?: Date; // Default bid end time
+
+
   @prop({ required: true, ref: User }) // Reference to the User model
   public seller!: Ref<User>;
  
