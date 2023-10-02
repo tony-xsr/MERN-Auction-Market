@@ -62,6 +62,26 @@ export const createAuctionHandler = async (
 };
 
 
+export const getAllPublishAuction = async (
+  _: Request<{}, {}>,
+  res: Response
+) => {
+  try {
+      // Get the current timestamp
+      const currentTime = new Date();
+      // Find all published auctions where the current time is within the bidStart and bidEnd range
+      const auctions = await AuctionModel.find({
+        status: 'published',
+        bidStart: { $lte: currentTime },
+        bidEnd: { $gte: currentTime },
+      }); 
+    return res.status(200).json({ auctions });
+  } catch (error) {
+    return res.status(500).json({
+      error: 'Internal server error',
+    });
+  }
+};
 
 export const getAllUserAuction = async (
   req: Request<{}, {}>,
