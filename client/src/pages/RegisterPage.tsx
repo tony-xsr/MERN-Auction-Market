@@ -1,24 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios';
-import Login from '../components/Login'; // Import the Login component
+import Register from '../components/Register'; // Import the Login component
 import { useUser } from '../context/UserContext'; // Import the useUser hook
 import { useAuth } from '../context/AuthContext';
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const apiUrl = process.env.REACT_APP_SERVER_API;
   const navigate = useNavigate(); // Get the navigate function for navigation
   const { setUserAndToken } = useUser(); // Get setUserAndToken function from context
   
   const { login } = useAuth();
   // Define the handleLogin function
-  const handleLogin = async (email: string, password: string) => {
+  const handleRegister = async (email: string, name: string, password: string, passwordConfirm: string) => {
     try {
-      const response = await axios.post(`${apiUrl}/auth/signin`, {
+      const response = await axios.post(`${apiUrl}/auth/signup`, {
         email,
         password,
+        passwordConfirm,
+        name
       });
-
+      console.log('response.data',response.data);
       const { token, user } = response.data;
       if(token && user) {
          
@@ -32,28 +34,29 @@ const LoginPage: React.FC = () => {
 
       } else {
         
-      window.alert('Could not sign in. Please check your email and password.');
+        window.alert('Could not sign up. Please check your email and password.');
       }
      
     } catch (error: any) {
        // Handle errors here
         if (error.response && error.response.status === 401) {
-            console.error('Could not sign in');
+            console.error('Could not sign up');
             // Display an alert message to the user
-            window.alert('Could not sign in. Please check your email and password.');
+            window.alert('Could not sign up. Please check your email and password.');
         } else {
-            console.error('An error occurred:', error.message);
+            // console.error('An error occurred:', error);
+            window.alert(error.response.data.error);
         }
     }
   };
 
   return (
     <div style={{display:'flex', flexDirection:'column'}}>
-      <h1>Welcome to the Login Page</h1>
+      <h1>Welcome to the Register Page</h1>
       {/* Render the Login component and pass the handleLogin function as a prop */}
-      <Login onLogin={handleLogin} />
+      <Register onRegister={handleRegister} />
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
