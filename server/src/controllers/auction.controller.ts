@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.model';
 import AuctionModel, { Bid }  from '../models/auction.model';
-import { verifyJwt } from '../utils/jwt';
+import { verifyJwt } from '../utils/jwt'; 
 
  
 export const createAuctionHandler = async (
@@ -200,6 +200,24 @@ export const joinAuctionHandle = async (
       });
     }
 
+        // Find the user's previous bid in this auction
+    let previousBidIndex: number = -1;
+
+    if (auction.bids) {
+      previousBidIndex = auction.bids.findIndex(
+        (bid) => bid.bidder?.toString() == user._id.toString()
+      );
+    } 
+ 
+    // Check if there's a previous bid
+    if (previousBidIndex !== -1) {
+      // Get the amount of the previous bid
+      const previousBidAmount = auction.bids[previousBidIndex]?.money ||0 ;
+      // Return the money from the previous bid to the user's available balance
+      user.availableBalance += previousBidAmount ;
+      // Remove the previous bid
+      auction.bids.splice(previousBidIndex, 1);
+    }
     // Deduct the bid amount from the user's available balance
     if (user.availableBalance < money) {
       return res.status(400).json({
