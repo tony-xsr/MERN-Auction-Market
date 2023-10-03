@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid } from '@mui/material'; // Import Material-UI components
+import { Button, Dialog, TextField, Grid } from '@mui/material'; // Import Material-UI components
 
 import './styles.css'; // Import the CSS file
 // Specify the type of the 'auction' prop
@@ -76,7 +76,7 @@ const OngoingAuctionItem: React.FC<AuctionItemProps> = ({ auction, joinAuction }
   }, [bidEndTimestamp]);
 
   return (
-    <Grid item xs={2} sm={4} md={4} key={auction._id}>
+    <Grid item xs={2} sm={2} md={6} key={auction._id}>
        <div className={"on-auction-item"} >
         <div>{auction.itemName}</div>
           <div className={"on-auction-item"} >

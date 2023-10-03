@@ -11,14 +11,14 @@ const AuctionFeed = () => {
     const apiUrl = process.env.REACT_APP_SERVER_API;
     const { accessToken } = useAuth();
     const {user} = useUser();
-    const [auctions, setAuctions] = useState([]);
+    const [auctions, setAuctions] = useState([]); 
      // Define a function to fetch the user's auctions
     const fetchOnGoingAuctions = async () => {
             try {
               const response = await axios.get(`${apiUrl}/auction/getAllAuction`);
-              console.log('setAuctions', JSON.stringify(response))
-              if(response && response.data && response.data.auctions){
-                const filteredAuctions = response.data.auctions.filter((auction: any) => auction !== user?._id);
+              if(response && response.data && response.data.auctions && response.data.auctions.length>0){
+                console.log('fetchOnGoingAuctions', JSON.stringify(response.data.auctions))
+                const filteredAuctions = response.data.auctions.filter((auction: any) => auction.seller !== user?._id);
                 setAuctions(filteredAuctions);
               }
             } catch (error) {
@@ -42,6 +42,7 @@ const AuctionFeed = () => {
         );
     
         if (response.status === 200) {
+          fetchOnGoingAuctions();
           window.alert("Joined the auction successfully"); 
           // You can perform any further actions here upon successful join
         } else {
