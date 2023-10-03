@@ -4,11 +4,12 @@ import './styles.css';
 import OngoingAuctionItem from "../OngoingAuctionItem";
 import { useUser } from "../../context/UserContext";
 import Grid from '@mui/material/Grid';
+import { useAuth } from "../../context/AuthContext";
 
 
 const AuctionFeed = () => {
     const apiUrl = process.env.REACT_APP_SERVER_API;
-    // const { accessToken } = useAuth();
+    const { accessToken } = useAuth();
     const {user} = useUser();
     const [auctions, setAuctions] = useState([]);
      // Define a function to fetch the user's auctions
@@ -28,8 +29,28 @@ const AuctionFeed = () => {
       // Call the fetchAuctions function when the component mounts
       fetchOnGoingAuctions();
     }, [apiUrl]);
+
     const joinAuction = async (auctionId: string, bidAmount : number) => {
-         
+      try {
+        const response = await axios.post(
+          `${apiUrl}/auction/joinAuction`,
+          {
+            accessToken,
+            money: bidAmount,
+            auctionId,
+          }
+        );
+    
+        if (response.status === 200) {
+          window.alert("Joined the auction successfully"); 
+          // You can perform any further actions here upon successful join
+        } else {
+          window.alert(response.data.error); 
+        }
+      } catch (error: any) {
+        window.alert(error.response?.data?.error);
+        // Handle the error appropriately
+      }
       };
     return (
       <div  className="auction-container">
