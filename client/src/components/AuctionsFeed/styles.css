@@ -1,0 +1,25 @@
+.auction-grid {
+  flex:1;
+  display: grid;
+  background-color: red;
+  grid-template-columns: repeat(auto-fill, minmax(0, 1fr)); /* Dynamic grid columns */
+  gap: 16px; /* Gap between grid items */
+}
+.auction-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible columns */
+  gap: 16px; /* Adjust the gap between items */
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+  .auction-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust for smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .auction-list {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust for even smaller screens */
+  }
+}
