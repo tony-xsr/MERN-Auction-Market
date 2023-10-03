@@ -165,3 +165,129 @@ JSON Data
 `{
     "message": "Auction status updated successfully"
 }`
+
+
+
+# Get information about ongoing auctions
+`http://localhost:8080/api/auction/getAllAuction`
+
+
+# Result 
+`{
+    "auctions": [
+        {
+            "_id": "651a9bca169b60b2fba14aaf",
+            "itemName": "item name 1",
+            "description": "test description",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/1200px-Test-Logo.svg.png",
+            "seller": "65199df1c1de2a4bd8060cc8",
+            "startingBid": 10.5,
+            "status": "published",
+            "created": "2023-10-02T10:30:34.495Z",
+            "bidStart": "2023-10-02T10:30:34.495Z",
+            "bids": [],
+            "__v": 0,
+            "bidEnd": "2023-10-03T16:54:17.223Z"
+        },
+        {
+            "_id": "651af0c25d24f8ec511e7df4",
+            "itemName": "testing 01",
+            "description": "test from web",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0NB1F_LdSh8gQpHAkVv6MjDSJ0S-Lj0gnYxOBdxZUOA&s",
+            "bidEnd": "2023-10-03T14:44:12.371Z",
+            "seller": "65199df1c1de2a4bd8060cc8",
+            "startingBid": 10,
+            "status": "published",
+            "created": "2023-10-02T16:33:06.064Z",
+            "bidStart": "2023-10-02T16:33:06.064Z",
+            "bids": [],
+            "__v": 0
+        },
+        {
+            "_id": "651af1795d24f8ec511e7df9",
+            "itemName": "testing 02",
+            "description": "test from web 2",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0NB1F_LdSh8gQpHAkVv6MjDSJ0S-Lj0gnYxOBdxZUOA&s",
+            "bidEnd": "2023-10-03T14:44:12.371Z",
+            "seller": "65199df1c1de2a4bd8060cc8",
+            "startingBid": 12,
+            "status": "published",
+            "created": "2023-10-02T16:36:09.022Z",
+            "bidStart": "2023-10-02T16:36:09.022Z",
+            "bids": [],
+            "__v": 0
+        }
+    ]
+}`
+
+
+# Adding Money For Test 
+Note that you have to define NODE_ENV=development
+`http://localhost:8080/api/auction/addmoney`
+
+# POST with DATA
+`{
+    "userId":"65199df1c1de2a4bd8060cc8",
+    "amount":"1000"
+}`
+
+
+# RESULT
+`{
+    "user": {
+        "_id": "65199df1c1de2a4bd8060cc8",
+        "name": "test111",
+        "email": "test36@gmail.com",
+        "password": "$2a$12$PhuFVs6nExRR4g2cBi79KebD5FOYJH9aeBSGkcaIM/Qpax1s5KUWq",
+        "seller": false,
+        "createdAuctions": [
+            "651a9bca169b60b2fba14aaf",
+            "651a9c76169b60b2fba14ab3",
+            "651af0c25d24f8ec511e7df4",
+            "651af1795d24f8ec511e7df9"
+        ],
+        "currentBid": [],
+        "availableBalance": 1000,
+        "lockedBalance": 0,
+        "created": "2023-10-01T16:27:29.095Z",
+        "__v": 4,
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTE5OWRmMWMxZGUyYTRiZDgwNjBjYzgiLCJpYXQiOjE2OTYzNDYwMzgsImV4cCI6MTY5Njk1MDgzOH0.UYO9pUahLlGFsIWCtDqw4BB52_L0AeI3mPUajxHyhdO4IM21xTQ7HK-YBRj7hV967OPtWtPjk8w4OW0pJp4cZg"
+    },
+    "message": "Money added successfully"
+}`
+
+
+# JOIN AUCTION BY ID
+`http://localhost:8080/api/auction/joinAuction`
+
+# DATA
+`{
+    "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTFjMzFjOTFkMWQzZGRjZTUwMTc3NGUiLCJpYXQiOjE2OTYzNDY1NzMsImV4cCI6MTY5NjYwNTc3M30.cxbmLbE8-pF2BA5D7TdQLmht4qcSKdH5iwe4QiUef0vb2dtqch7cPWre6bVqZVW5CiWzLz6P-rB8Tpp2mBfn2w",
+    "money": 2,
+    "auctionId": "651a9bca169b60b2fba14aaf"
+
+}`
+
+# RESULT
+`{
+    "error": "Insufficient balance to join the auction"
+}`
+
+ADD MONEY AND THEN TRY
+`
+{
+    "message": "Joined the auction successfully"
+}
+`
+IF YOU BID WITH LOWER THE HIGHTEST MONEY ITS WILL ERROR
+`
+{
+    "error": "Bid amount should be higher than the current highest bid"
+}
+`
+Your can't join your auction event
+`{
+    "error": "Your can`t join your auction events"
+}`
+
+ 
