@@ -181,10 +181,8 @@ export const joinAuctionHandle = async (
       return res.status(400).json({
         error: 'Auction is not active',
       });
-    } 
-    console.log("Seller "+JSON.stringify(auction.seller))
-    console.log("User "+JSON.stringify(user))
-    if (auction.seller?.toString() === user._id) {
+    }  
+    if (auction.seller?.toString() == user._id.toString()) {
       return res.status(400).json({
         error: 'Your can`t join your auction events',
       });
