@@ -1,0 +1,10 @@
+
+//dotennv error for webpack 5.0
+node_modules/react-scripts/config/webpack.config.json and there write the following code in resolve block
+fallback: {
+        "crypto": require.resolve("crypto-browserify"),
+        "os": require.resolve("os-browserify/browser"),
+        "path": require.resolve("path-browserify"),
+        "stream": require.resolve("stream-browserify")
+        
+}  
