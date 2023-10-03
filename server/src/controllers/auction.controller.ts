@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.model';
-import AuctionModel  from '../models/auction.model';
+import AuctionModel, { Bid }  from '../models/auction.model';
 import { verifyJwt } from '../utils/jwt';
 
  
@@ -9,7 +9,6 @@ export const createAuctionHandler = async (
   res: Response
 ) => {
   try {
-
     const { itemName, description, image, startingBid, status,accessToken } = req.body;
     // Verify the access token and extract the user ID
     const decodedAccessToken = verifyJwt<{ sub: string }>(accessToken, 'JWT_ACCESS_TOKEN_PUBLIC_KEY');
@@ -111,15 +110,50 @@ export const getAllUserAuction = async (
   }
 };
 
+
+
+export const addMoneyForTest = async (req: Request, res: Response) => {
+  try {
+    const { userId, amount } = req.body;
+
+    // Find the user by ID
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        error: 'User not found',
+      });
+    }
+
+    // Add the specified amount to the user's balance
+    user.availableBalance += amount;
+
+    // Save the updated user
+    await user.save();
+
+    return res.status(200).json({
+      user,
+      message: 'Money added successfully',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: 'Internal server error',
+    });
+  }
+};
+
 export const joinAuctionHandle = async (
   req: Request<{}, {}>,
   res: Response
 ) => {
   try {
-   
     const { accessToken, auctionId, money } = req.body;
+
     // Verify the access token and extract the user ID
-    const decodedAccessToken = verifyJwt<{ sub: string }>(accessToken, 'JWT_ACCESS_TOKEN_PUBLIC_KEY');
+    const decodedAccessToken = verifyJwt<{ sub: string }>(
+      accessToken,
+      'JWT_ACCESS_TOKEN_PUBLIC_KEY'
+    );
 
     if (!decodedAccessToken) {
       return res.status(401).json({
@@ -128,50 +162,76 @@ export const joinAuctionHandle = async (
     }
 
     const userId = decodedAccessToken.sub;
-    
-      // Check if the user has sufficient balance to join the auction
-      const user = await UserModel.findById(userId);
-      const auction = await AuctionModel.findById(auctionId);
-  
-      if (!user || !auction) {
-        return res.status(404).json({
-          error: 'User or auction not found',
-        });
-      }
-  
-      const bidAmount = 100; // Change this to the actual bid amount
-  
-      if (user.availableBalance < bidAmount) {
-        return res.status(400).json({
-          error: 'Insufficient balance to join the auction',
-        });
-      }
-  
-      // Add the user to the currentBid array of the auction
-      // auction.bid.push(userId);
-
-      if( user.currentBid){
-        user.currentBid?.push(auction._id);
-      } else {
-        user.currentBid = [auction._id];
-      }
-  
-      // Deduct the bid amount from the user's available balance
-      user.availableBalance -= bidAmount;
-  
-      // Save the updated user and auction documents
-      await user.save();
-      await auction.save();
-  
-      return res.status(200).json({
-        message: 'Joined the auction successfully',
+ 
+    // Check if the user has sufficient balance to join the auction
+    const user = await UserModel.findById(userId);
+    const auction = await AuctionModel.findById(auctionId);
+     
+    if (!user || !auction) {
+      return res.status(404).json({
+        error: 'User or auction not found',
       });
+    }
+    if(!auction.bids){
+      auction.bids = []
+    }
+
+    // Ensure that the auction is in the 'active' status (you can add this check)
+    if (auction.status !== 'published') {
+      return res.status(400).json({
+        error: 'Auction is not active',
+      });
+    } 
+    console.log("Seller "+JSON.stringify(auction.seller))
+    console.log("User "+JSON.stringify(user))
+    if (auction.seller?.toString() === user._id) {
+      return res.status(400).json({
+        error: 'Your can`t join your auction events',
+      });
+    }
+    
+    // Verify if the bid amount is greater than the current highest bid (if any)
+    const highestBid = auction.bids?.reduce(
+      (maxBid, bid) => (bid.money > maxBid ? bid.money : maxBid),
+      0
+    );
+
+    if (money <= highestBid) {
+      return res.status(400).json({
+        error: 'Bid amount should be higher than the current highest bid',
+      });
+    }
+
+    // Deduct the bid amount from the user's available balance
+    if (user.availableBalance < money) {
+      return res.status(400).json({
+        error: 'Insufficient balance to join the auction',
+      });
+    }
+
+    // Create a new Bid instance
+    const newBid = new Bid(user._id, money, new Date());
+
+
+    auction.bids.push(newBid);
+
+    // Deduct the bid amount from the user's available balance
+    user.availableBalance -= money;
+
+    // Save the updated user and auction documents
+    await user.save();
+    await auction.save();
+
+    return res.status(200).json({
+      message: 'Joined the auction successfully',
+    });
   } catch (error) {
     return res.status(500).json({
       error: 'Internal server error',
     });
   }
 };
+ 
 
 export const getAuctionUserHasJoined = async (
   req: Request<{}, {}>,

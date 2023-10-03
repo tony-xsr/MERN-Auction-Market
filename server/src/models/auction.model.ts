@@ -38,7 +38,12 @@ export class Auction {
   bids?: Bid[];
 }
 
-class Bid {
+export class Bid {
+  constructor(bidder: User, money: number, time: Date){
+    this.bidder = bidder;
+    this.money = money;
+    this.time = time;
+  }
   @prop({ required: true, ref: User }) // Reference to the User model
   bidder!: Ref<User>;
 
