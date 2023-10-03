@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Dialog, TextField, Grid } from '@mui/material'; // Import Material-UI components
 
 import './styles.css'; // Import the CSS file
+import { blue } from '@mui/material/colors';
 // Specify the type of the 'auction' prop
 interface AuctionItemProps {
   auction: {
@@ -74,7 +75,10 @@ const OngoingAuctionItem: React.FC<AuctionItemProps> = ({ auction, joinAuction }
 
     return () => clearInterval(timer);
   }, [bidEndTimestamp]);
-
+  const highestBid = auction.bids?.reduce(
+    (maxBid, bid) => (bid.money > maxBid ? bid.money : maxBid),
+    0
+  );
   return (
     <Grid item xs={2} sm={2} md={6} key={auction._id}>
        <div className={"on-auction-item"} >
@@ -84,12 +88,17 @@ const OngoingAuctionItem: React.FC<AuctionItemProps> = ({ auction, joinAuction }
             <p>Status: {auction.status}</p>
             <p>Time Remaining: {countdown}</p>
             <p>Number of Bids: {auction.bids.length}</p>
+            <p>Highest Price: {highestBid}</p>
+           
           </div>
           <div>
-            <Button onClick={handleJoinClick} color="primary">
+            <Button style={{background:'blue', color:'white'}} onClick={handleJoinClick} color="primary">
               Join
             </Button>
           </div>
+          <div>
+              <img style={{height:95, width:190, marginTop:10}} src={auction.image} alt={auction.itemName} />
+            </div>  
        </div>
       <Dialog 
         open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
