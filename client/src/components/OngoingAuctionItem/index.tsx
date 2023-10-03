@@ -97,10 +97,20 @@ const OngoingAuctionItem: React.FC<AuctionItemProps> = ({ auction, joinAuction }
           <h3>Enter Bid Amount</h3>
           <TextField
               style={{height:40}}
-              type="number"
+              type="text"
               label="Bid Amount"
-              value={bidAmount || 0}
-              onChange={(e) => setBidAmount(Number(e.target.value))}
+              value={bidAmount || 1.0}
+              onChange={(e) => {
+                const input = e.target.value;
+                // Use a regular expression to allow only numbers and a decimal point
+                const regex = /^(\d+)?(\.\d{0,2})?$/; // Allows up to two decimal places
+                if (regex.test(input)) {
+                  // Input is valid, update the state 
+                  setBidAmount(Number(input));
+                }
+                // Otherwise, do nothing (input remains unchanged)
+              }}
+              // onChange={(e) => setBidAmount(Number(e.target.value))}
             />
           <div>
             <Button onClick={handleBidSubmit} color="primary">
