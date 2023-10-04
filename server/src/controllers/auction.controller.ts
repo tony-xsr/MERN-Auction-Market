@@ -131,9 +131,10 @@ export const addMoneyForTest = async (req: Request, res: Response) => {
     // Save the updated user
     await user.save();
 
-    return res.status(200).json({
-      user,
-      message: 'Money added successfully',
+    return res.json({
+      user: { _id: user._id, name: user.name, email: user.email, seller: user.seller,
+        availableBalance: user.availableBalance ,
+        lockedBalance: user.lockedBalance },
     });
   } catch (error) {
     return res.status(500).json({

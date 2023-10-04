@@ -53,7 +53,9 @@ export const signinHandler = async (
       // Send the user info and access token in the response
       return res.json({
         token: { accessToken, refreshToken},
-        user: { _id: user._id, name: user.name, email: user.email, seller: user.seller },
+        user: { _id: user._id, name: user.name, email: user.email, seller: user.seller,
+          availableBalance: user.availableBalance ,
+          lockedBalance: user.lockedBalance },
       });
     } catch (error) {
       return res.status(401).json({
@@ -107,7 +109,10 @@ export const signinHandler = async (
         // Send the user info and access token in the response
         return res.json({ 
            token: { accessToken, refreshToken},
-           user: { _id: user._id, name: user.name, email: user.email, seller: user.seller },
+           user: { _id: user._id, name: user.name, email: user.email, 
+            seller: user.seller, availableBalance: user.availableBalance ,
+            lockedBalance: user.lockedBalance
+          },
         });
       } else {
         return res.status(401).json({
