@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css'; // Import the CSS file
+import { Link } from 'react-router-dom';
 
 
 interface LoginProps {
@@ -34,6 +35,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
+        <Link style={{marginTop:20}} to="/register">Create Account</Link>
       </form>
     </div>
   );
