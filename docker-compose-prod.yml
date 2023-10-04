@@ -14,28 +14,29 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mongodb
+      - mongo
     env_file: ./server/.env
     environment:
       - NODE_ENV=development
     networks:
       - app-network
-  mongodb:
+  mongo:
     image: mongo:latest
-    container_name: mongodb
+    container_name: mongo
     environment: 
       MONGO_INITDB_ROOT_USERNAME: "${MONGODB_USERNAME}"
       MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_PASSWORD}"
       MONGO_INITDB_DATABASE: "${MONGODB_DATABASE_NAME}"
     env_file:
       - ./server/.env
+      #- ./.env
     volumes:
       - mongo-data:/data/db # Mount the mongo-data volume to /data/db in the container
     ports:
       - "27017:27017"
     networks:
       - app-network
-    # command: mongod --bind_ip 0.0.0.0
+    command: mongod --bind_ip 0.0.0.0  
   client:
     build:
       context: ./client
@@ -59,12 +60,12 @@ services:
   #     - mongo
   #   env_file:
   #     - ./server/.env
-
-volumes:
-    mongo-data:
-    web-root:
-      driver: local
-
 networks:
     app-network:
         driver: bridge
+
+volumes:
+    mongo-data:
+    node_modules:
+    web-root:
+      driver: local
