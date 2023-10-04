@@ -1,0 +1,19 @@
+/* styles.css (or styles.scss) */
+
+/* Center the form vertically and horizontally */
+.user-container {
+    /* position:absolute; */ 
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    height: 350px;
+    min-width: 400px; 
+    margin-bottom: 30px;
+  }
+  
+  .user-container p{
+    margin: 10px;
+    font-size: 10pt;
+    font-weight: bold;
+  }
+   
