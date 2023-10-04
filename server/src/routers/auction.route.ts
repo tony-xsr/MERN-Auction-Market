@@ -8,7 +8,7 @@ auctionRouter.post('/myAuctions', getAllUserAuction);
 auctionRouter.post('/update', changeAuctionHandler);
 auctionRouter.post('/joinAuction', joinAuctionHandle);
 auctionRouter.get('/getAllAuction', getAllPublishAuction);
-if( process.env['NODE_ENV'] == "development") {
+if( process.env['ENABLE_DEPOSIT'] == "true") {
     auctionRouter.post('/addmoney', addMoneyForTest);
 }
 
