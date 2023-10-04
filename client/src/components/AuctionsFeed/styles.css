@@ -1,7 +1,16 @@
+.auction-feed-container {
+  flex:1; 
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items:flex-start;
+  margin-top: 250px; 
+  width: '100%';
+}
 .auction-grid {
   flex:1;
-  display: grid;
-  background-color: red;
+  margin-top: 200px;
+  width: fit-content;
+  display: grid; 
   grid-template-columns: repeat(auto-fill, minmax(0, 1fr)); /* Dynamic grid columns */
   gap: 16px; /* Gap between grid items */
 }

@@ -54,7 +54,7 @@ const AuctionFeed = () => {
       }
       };
     return (
-      <div  className="auction-container">
+      <div  className="auction-feed-container" style={{flex:1,justifyContent: 'flex-start', width:'100%', height:'100%'}}>
         <h2>Ongoing Auctions</h2>  
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         { auctions && auctions.length>0 ?   
