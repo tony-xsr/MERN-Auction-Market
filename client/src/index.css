@@ -15,8 +15,8 @@ code {
 
 /* App.css */
 .home {
-
   width: 100%;
+  margin-top: 50px;
 }
 .home .container {
   display: flex;
@@ -26,8 +26,12 @@ code {
 
 .home .left-column {
   flex: 3;
+  display: flex;
+  flex-direction: column;
   background-color: #f0f0f0; /* Add your background color */
-  padding: 20px;
+  padding: 10px;
+  margin-bottom: 50px;
+  height: 100vh;
 }
 
 .home .right-column {
