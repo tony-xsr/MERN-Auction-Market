@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column; 
   border-radius: 5px; 
-  margin-top: 250px;
+  margin-top: 40px;  
+  width: fit-content;
 }
 .my-auctions {
   display: flex; 

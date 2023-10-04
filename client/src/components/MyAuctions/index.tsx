@@ -14,7 +14,6 @@ const MyAuctions = () => {
               const response = await axios.post(`${apiUrl}/auction/myauctions`, {
                 accessToken,
               });
-              console.log('setAuctions', JSON.stringify(response))
               setAuctions(response.data.auctions);
             } catch (error) {
               console.error('Error fetching auctions:', error);
@@ -58,7 +57,7 @@ const MyAuctions = () => {
     return (
       <div  className="auction-container">
         <h2>My Auctions</h2>  
-        <div className="my-auctions">
+        <div className="my-auctions" style={{ overflowY: 'scroll' }} >
             { auctions && auctions.length>0 ? <div  className="auction-list">
                 { [...auctions].reverse().map((auction: any) => (
                   <AuctionItem key={auction._id} auction={auction} updateAuctionStatus={updateAuctionStatus}/> 
