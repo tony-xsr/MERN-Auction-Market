@@ -65,6 +65,17 @@ my-project/
 - Address Auto-Unlocking Funds When a User's Bid Doesn't Reach the Minimum and the Auction Expires.
 - Correct Bugs Related to Bidding in Auctions.
 
+### GO LIVE URL   
+
+BACKEND API URL    
+
+`http://45.32.37.20:8080/`   
+
+
+CLIENT    
+
+`http://45.32.37.20:3000/`   
+
 ### How to run the App ?
 
 In Development Mode :
@@ -141,19 +152,31 @@ It's already in root project. You can import and open it with POSTMAN
 
 
 ### Build the image for server
+Login       
 
-`docker login`
-Build Docker 
- `docker tag myapp-server {docker_username}/myapp-server:1.0`
-`docker tag myapp-client {docker_username}/myapp-client:1.0`
+`docker login`      
 
-Push to docker server 
-`docker push {docker_username}/myapp-client:1.0`  
-`docker push {docker_username}/myapp-server:1.0`
+Build Docker        
 
-Login to your cloud server
-Login Docker and Pull 
-`docker pull {docker_username}/myapp-client:1.0`  
-`docker pull {docker_username}/myapp-server:1.0`
 
-`docker-compose up -d`
+ `docker tag myapp-server {docker_username}/myapp-server:1.0`       
+
+ 
+`docker tag myapp-client {docker_username}/myapp-client:1.0`        
+
+Push to docker server       
+
+`docker push {docker_username}/myapp-client:1.0`        
+
+`docker push {docker_username}/myapp-server:1.0`        
+
+
+Login to your cloud server          
+
+Login Docker and Pull      
+
+`docker pull {docker_username}/myapp-client:1.0`          
+
+`docker pull {docker_username}/myapp-server:1.0`        
+
+`docker-compose up -d`      
