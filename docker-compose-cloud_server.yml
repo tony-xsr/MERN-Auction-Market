@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  server:
+    image: dev8uk/myapp-server:1.0  # Replace with your Node.js server image
+    container_name: myapp-node-server
+    command: npm run start
+    ports:
+      - "8080:8080"
+    env_file: ./server/.env
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGODB_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGODB_PASSWORD}"
+      MONGO_INITDB_DATABASE: "${MONGODB_DATABASE_NAME}"
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  client:
+    image: dev8uk/myapp-client:1.0  # Replace with your React client image
+    container_name: myapp-react-client
+    command: npm run start
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge
