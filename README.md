@@ -3,7 +3,6 @@ Auction Marketplace with MERN
 
 ### Prerequisites:
 You must have Docker Installed in your System !
- 
 
 ### Docker Diagram
 ![MERN DOCKER diagram](https://github.com/tony-xsr/MERN-Auction-Market/blob/bd164740cbd2e4a04ebc61d120d65d47ea81f816/documents/images/3-tier-diagram.png?raw=true)
@@ -39,6 +38,20 @@ my-project/
 
 ```
 
+### Features
+- Login / Register / Logout
+- Create Auction
+- Publish / Draft my Auction
+- HomePage / Ongoing Auction News Feed 
+- Join / BID  / Bid Revision Auction.
+- User Balance (Lock/Available )
+- Deposit money
+
+### Upcoming Features
+- Enhance the Client Web User Experience (UX/UI).
+- Resolve Issues Related to Locking/Unlocking User Balances.
+- Address Auto-Unlocking Funds When a User's Bid Doesn't Reach the Minimum and the Auction Expires.
+- Correct Bugs Related to Bidding in Auctions.
 
 ### How to run the App ?
 
@@ -47,9 +60,13 @@ In Development Mode :
 First copy the content of `docker-compose-dev.yml` to `docker-compose.yml`
 
 `docker compose down`
+
 Run the app using :
+
 `$ docker-compose up --build --remove-orphans`
+
 or
+
 `$ docker-compose up -d`
 
 Above command will start the services on (-d) detach mode (similar like running the app in background)
