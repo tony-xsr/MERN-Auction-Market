@@ -81,19 +81,11 @@ Clean docker cache - volumes & containers
 ### Videos Demo 
 
 Run Demo Auction Website
-<video width="320" height="240" controls>
-  <source src="https://github.com/tony-xsr/MERN-Auction-Market/blob/main/documents/files/auction_demo.mp4" type="video/mov">
-  Your browser does not support the video tag.
-</video>
 
 [auction_demo.mp4](https://github.com/tony-xsr/MERN-Auction-Market/blob/main/documents/files/auction_demo.mp4)
 
 
 Run Demo How To Start Project with Docker.
-<video width="320" height="240" controls>
-  <source src="https://github.com/tony-xsr/MERN-Auction-Market/blob/main/documents/files/deploy_project_demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 [deploy_project_demo.mp4](https://github.com/tony-xsr/MERN-Auction-Market/blob/main/documents/files/deploy_project_demo.mp4)
 
@@ -101,10 +93,13 @@ Run Demo How To Start Project with Docker.
 OR you can access to see the video here via Google Drive
 [https://drive.google.com/drive/folders/1ocQ0GPQgX13xnVLtZpqd8kkIdIZw9FWd?usp=sharing](https://drive.google.com/drive/folders/1ocQ0GPQgX13xnVLtZpqd8kkIdIZw9FWd?usp=sharing)
 
+### APIs Document
+[https://documenter.getpostman.com/view/26331022/2s9YJexLKq](https://documenter.getpostman.com/view/26331022/2s9YJexLKq)
+
 
 ### POSTMAN  (A tool for testing APIs) API COLLECTIONS DOCUMENT
 It's already in root project. You can import and open it with POSTMAN 
-`AcductionAPIs.postman_collection`
+`AucductionAPIs.postman_collection.json`
 
 ### Server Document
 [README.MD](https://github.com/tony-xsr/MERN-Auction-Market/tree/main/server)
