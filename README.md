@@ -47,6 +47,18 @@ my-project/
 - User Balance (Lock/Available )
 - Deposit money
 
+### Server APIs 
+- SIGN-UP `/api/auth/signup` 
+- SIGN-IN `/api/auth/signin`
+- SIGN-OUT `/api/auth/signout`
+- CREATE AUCTION `api/auction/create`
+- JOIN AUCTION `/api/auction/joinAuction`
+- ADD MONEY `/api/auction/addmoney`
+- MY AUCTIONS `/api/auction/myauctions`
+- GET ALL AUCTIONS `/api/auction/getAllAuction`
+- ALL AUCTIONS `/api/auction/getAllAuction`
+- UPDATE AUCTION STATUS `/api/auction/update`
+
 ### Upcoming Features
 - Enhance the Client Web User Experience (UX/UI).
 - Resolve Issues Related to Locking/Unlocking User Balances.
@@ -114,6 +126,8 @@ OR you can access to see the video here via Google Drive
 [https://documenter.getpostman.com/view/26331022/2s9YJexLKq](https://documenter.getpostman.com/view/26331022/2s9YJexLKq)
 
 
+
+
 ### POSTMAN  (A tool for testing APIs) API COLLECTIONS DOCUMENT
 It's already in root project. You can import and open it with POSTMAN 
 `AucductionAPIs.postman_collection.json`
@@ -124,3 +138,22 @@ It's already in root project. You can import and open it with POSTMAN
 
 ### Client Document
 [README.MD](https://github.com/tony-xsr/MERN-Auction-Market/tree/main/client)
+
+
+### Build the image for server
+
+`docker login`
+Build Docker 
+ `docker tag myapp-server {docker_username}/myapp-server:1.0`
+`docker tag myapp-client {docker_username}/myapp-client:1.0`
+
+Push to docker server 
+`docker push {docker_username}/myapp-client:1.0`  
+`docker push {docker_username}/myapp-server:1.0`
+
+Login to your cloud server
+Login Docker and Pull 
+`docker pull {docker_username}/myapp-client:1.0`  
+`docker pull {docker_username}/myapp-server:1.0`
+
+`docker-compose up -d`
