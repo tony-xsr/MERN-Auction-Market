@@ -43,7 +43,8 @@ my-project/
 ### How to run the App ?
 
 In Development Mode :
-First copy the content of docker-compose-dev.yml to docker-compose.yml
+
+First copy the content of `docker-compose-dev.yml` to `docker-compose.yml`
 
 `docker compose down`
 Run the app using :
@@ -67,13 +68,13 @@ To check the status of the running containers :
 `docker-compose ps`
 
 In Production Mode :
+
 First copy the content of `docker-compose-prod.yml` to `docker-compose.yml`
 Run the app using :
  `$ docker-compose up --build -remove-orphans`
 The App should be up at `http://localhost:8080`
 
-
-### Orthers docker command
+### Others docker command
 Clean docker cache - volumes & containers
 `docker system prune --volumes`
 
@@ -101,3 +102,13 @@ OR you can access to see the video here via Google Drive
 [https://drive.google.com/drive/folders/1ocQ0GPQgX13xnVLtZpqd8kkIdIZw9FWd?usp=sharing](https://drive.google.com/drive/folders/1ocQ0GPQgX13xnVLtZpqd8kkIdIZw9FWd?usp=sharing)
 
 
+### POSTMAN  (A tool for testing APIs) API COLLECTIONS DOCUMENT
+It's already in root project. You can import and open it with POSTMAN 
+`AcductionAPIs.postman_collection`
+
+### Server Document
+[README.MD](https://github.com/tony-xsr/MERN-Auction-Market/tree/main/server)
+
+
+### Client Document
+[README.MD](https://github.com/tony-xsr/MERN-Auction-Market/tree/main/client)
